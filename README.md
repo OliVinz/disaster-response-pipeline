@@ -13,17 +13,23 @@ A project part of the data science nanodegree program. A model was trained on la
 ## File Descriptions
 ### Folder: app
 **run.py** - python script needed to run web app.
+
 Folder: templates - html files (go.html & master.html) required for the web app.
 
 ### Folder: data
 **disaster_messages.csv** - real messages sent during disaster events
+
 **disaster_categories.csv** - corresponding categories of the messages
+
 **process_data.py** - ETL pipeline used to load, clean, extract feature and store data in SQLite database
+
 **ETL Pipeline Preparation.ipynb** - Jupyter Notebook used for analysis and to prepare ETL pipeline
+
 **DisasterResponse.db** - cleaned data stored in table df_clean in SQlite database
 
 ### Folder: models
 **train_classifier.py** - ML pipeline used to load cleaned data, train model and save trained model as pickle (.pkl) file
+
 **ML Pipeline Preparation.ipynb** - Jupyter Notebook used for analysis and to prepare ML pipeline
 
 ## Instructions
