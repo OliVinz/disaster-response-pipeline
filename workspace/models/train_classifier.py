@@ -20,6 +20,18 @@ import pickle
 
 
 def load_data(database_filepath):
+    """
+       Function:
+       loading data from a sqlite database
+
+       Args:
+       database_filepath: the path of the database
+
+       Return:
+       X (DataFrame) : features dataframe
+       Y (DataFrame) : target dataframe
+       category_names(list of str) : target labels list
+    """
     engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql_table('messages', engine)
     X = df['message']  # Message Column
@@ -29,6 +41,13 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """
+    Function: tokenizing text by using regex, lemmatizing and cleaning steps
+    Args:
+      text(str): input text
+    Return:
+      cleaned_tokens(list of str): cleaned, tokenized list of tokens
+    """
     regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected = re.findall(regex, text)
     for url in detected:
@@ -46,6 +65,12 @@ def tokenize(text):
 
 
 def build_model():
+    """
+     Function: building a model that is able to classify messages
+
+     Return:
+       cv(list of str): model
+    """
     pipeline = Pipeline([
     ('vect', CountVectorizer(tokenizer=tokenize)),
     ('tfidf', TfidfTransformer()),
@@ -64,6 +89,13 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Function: Function to evalute the created model and output several metrics
+    Args:
+    model: classification model
+    X_test: messages
+    Y_test: test target
+    """
     y_pred = model.predict(X_test)
     for i in range(36):
         print(Y_test.columns[i], ':')
@@ -71,6 +103,12 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    Function: Store the created model in a pickle file
+    Args:
+    model: the model
+    model_filepath (str): the path of pickle file to store
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
