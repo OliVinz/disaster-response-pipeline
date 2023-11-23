@@ -54,6 +54,25 @@ def index():
         {
             'data': [
                 Bar(
+                    x=category_names,
+                    y=category_boolean
+                )
+            ],
+
+            'layout': {
+                'title': 'Graph displaying message categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': 25
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
                     x=genre_names,
                     y=genre_counts
                 )

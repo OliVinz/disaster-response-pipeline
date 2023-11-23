@@ -8,6 +8,17 @@ import seaborn as sns
 
 
 def load_data(messages_filepath, categories_filepath):
+	"""
+      Function:
+      loads data from 2 csv files + merge them
+
+      Args:
+      messages_filepath (str): the file path of messages csv file
+      categories_filepath (str): the file path of categories csv file
+
+      Return:
+      df (DataFrame): A dataframe of messages and categories
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath,encoding='latin-1', low_memory=False)
     df = pd.merge(messages, categories, on='id', how='outer')
@@ -15,6 +26,16 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """
+      Function:
+      Cleaning the dataframe named df
+
+      Args:
+      df (DataFrame): A dataframe of messages and categories earlier imported
+
+      Return:
+      df (DataFrame): returning a cleaned dataframe
+    """
     categories = df.categories.str.split(';', expand=True)
     row = categories.iloc[[1]]
     category_colnames = [category_name.split('-')[0] for category_name in row.values[0]]
@@ -22,10 +43,10 @@ def clean_data(df):
     
     for column in categories:
     # set each value to be the last character of the string
-        categories[column] = categories[column].astype(str).str[-1:]
+        categories[column] = categories[column].str[-1:]
     
     # convert column from string to numeric
-        categories[column] = categories[column].astype(int)
+        categories[column] = categories[column].astype(np.int)
         
     df.drop(['categories'], axis=1, inplace=True)
     df = pd.concat([df,categories], join='inner', axis=1)
@@ -35,6 +56,16 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+
+    """
+       Function:
+       Store the dataframe df into an sqlite database
+
+       Args:
+       df (DataFrame): A dataframe of messages and categories
+       database_filename (str): The file name of the database
+
+    """
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('messages', engine, index=False, if_exists='replace')  
 
