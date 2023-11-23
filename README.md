@@ -7,8 +7,9 @@ Udacity Data Science Nanodegree - Disaster Response Pipeline Project
 3. Instructions
 4. Acknowledgements
 
-## Introduction
+## Introduction and Importance
 A project part of the data science nanodegree program. A model was trained on labelled disaster messages to categorise new messages in real time to simulate actual disaster message categorisation.
+Projects and models like these can help business and organisations to quickly act in emergencies to classify messages and hand them to the appropriate places. This will allow for faster reaction times than without models.
 
 ## File Descriptions
 ### Folder: app
