@@ -51,6 +51,11 @@ def clean_data(df):
 
     df.drop(["categories"], axis=1, inplace=True)
     df = pd.concat([df, categories], join="inner", axis=1)
+    
+    # remove rows where the values are not 0 or 1 in the categorical values
+    for col in list(category_colnames):
+        df = df.drop(df[(df[col] != 0) & (df[col] != 1)].index)
+
     df.drop_duplicates(inplace=True)
     return df
 
